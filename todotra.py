@@ -1,0 +1,145 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+
+------------------------------------------------------------------------------
+
+To-do tracker
+Author: Kjetil Paulsen
+Date: 28. september 2024
+
+This is my version of the classic todo-list. 
+
+------------------------------------------------------------------------------
+
+"""
+
+import sys
+import os
+import time
+
+def load_tasks(fname):
+    """
+    Opening the file of previously saved tasks, if there are no tasks saved
+    then return an empty list
+    """
+    try:
+        with open(fname, 'r') as file:
+            tasklist = [line.strip() for line in file if line.strip()]
+            file.close()
+        return tasklist
+    except FileNotFoundError:
+        return []
+
+def save_tasks(tasklist, fname):
+    """
+    Writing the tasklist to a file
+    """
+    with open(fname, 'w') as file:
+        for task in tasklist:
+            file.write(task + '\n')
+    file.close()
+    return 0
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    pass
+
+
+def print_heading():
+    clear_screen()
+    print('\n\n---------------------------------')
+    print('Todotra: a client based todo-tracker')
+    print('---------------------------------\n')
+    pass
+
+def print_menu():
+    print('1. Add task')
+    print('2. View tasks')
+    print('3. Mark task as completed')
+    print('\nq. Save and quit\n')
+    print('---------------------------------\n')
+
+def add_task():
+    print_heading()
+    task = input('Enter a new task: ')
+    tasklist.append(task)
+    print('\nTask added!')
+    return 0
+
+def view_tasks():
+    print_heading()
+    if not tasklist:
+        print('No tasks')
+    else:
+        print('List of tasks:')
+        for i, task in enumerate(tasklist, start=1):
+            print(f'{i}, {task}')
+    return 0
+
+def mark_completed():
+    cont = True
+    while cont:
+        view_tasks()
+        if not tasklist:
+            return 0
+        try:
+            task_number = int(input('\nEnter the task number to mark as '
+                                    'completed(0 returns to main): '))
+            if task_number < 0 or task_number > len(tasklist):
+                print('Please enter a valid number')
+            else:
+                if task_number == 0:
+                    return 0
+                else:
+                    completed_task = tasklist.pop(task_number - 1)
+                    print(f'\nTask "{completed_task}" ' 
+                          'marked as completed')
+                    cont = False
+        except ValueError:
+            print('Please enter a valid number')
+
+    return 0
+
+
+def main():
+    fname = 'todo_list.txt'
+    global tasklist
+    tasklist = load_tasks(fname)
+    cont = True
+    while cont:
+        print_heading()
+        print_menu()
+        choise = input('Enter your choise, 1-3, or q to quit: ')
+        try:
+            pass
+        except:
+            pass
+
+        if choise == '1':
+            #Add task
+            add_task()
+        elif choise == '2':
+            #View tasks
+            view_tasks()
+            wait = input('\nPress enter to continue...')
+            del wait
+        elif choise == '3':
+            #Mark tasks as completed
+            mark_completed()
+        elif choise == 'q':
+            save_tasks(tasklist, fname)
+            print('Todotra saved. Thank you for using the program. Goodbye!')
+            cont = False
+            time.sleep(2)
+            clear_screen()
+        else:
+            print('Please chose one of the options')
+            time.sleep(2)
+
+
+    return 0
+
+if __name__ == '__main__':
+    main()
