@@ -43,11 +43,17 @@ def save_tasks(tasklist, fname):
     return 0
 
 def clear_screen():
+    """
+    Clears the terminal
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
     pass
 
 
 def print_heading():
+    """
+    Prints out the heading of the program
+    """
     clear_screen()
     print('\n\n---------------------------------')
     print('Todotra: a client based todo-tracker')
@@ -55,6 +61,9 @@ def print_heading():
     pass
 
 def print_menu():
+    """
+    Prints out the main menu
+    """
     print('1. Add task')
     print('2. View tasks')
     print('3. Mark task as completed')
@@ -62,6 +71,9 @@ def print_menu():
     print('---------------------------------\n')
 
 def add_task():
+    """
+    Takes input from user and appends it to the task-list
+    """
     print_heading()
     task = input('Enter a new task: ')
     tasklist.append(task)
@@ -69,6 +81,9 @@ def add_task():
     return 0
 
 def view_tasks():
+    """
+    Prints out(with enumeration) a list of the tasks
+    """
     print_heading()
     if not tasklist:
         print('No tasks')
@@ -79,6 +94,10 @@ def view_tasks():
     return 0
 
 def mark_completed():
+    """
+    Prints view_tasks and asks the user for input of which task to mar
+    as completed. Then removes the task from the list
+    """
     cont = True
     while cont:
         view_tasks()
@@ -104,6 +123,9 @@ def mark_completed():
 
 
 def main():
+    """
+    Main function
+    """
     fname = 'todo_list.txt'
     global tasklist
     tasklist = load_tasks(fname)
@@ -112,11 +134,12 @@ def main():
         print_heading()
         print_menu()
         choise = input('Enter your choise, 1-3, or q to quit: ')
+        # Unused try except block
         try:
             pass
         except:
             pass
-
+        # Menu choise
         if choise == '1':
             #Add task
             add_task()
