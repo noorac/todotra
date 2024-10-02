@@ -103,6 +103,7 @@ def mark_completed():
         view_tasks()
         if not tasklist:
             return 0
+        # Take input on what task to mark
         try:
             task_number = int(input('\nEnter the task number to mark as '
                                     'completed(0 returns to main): '))
