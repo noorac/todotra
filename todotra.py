@@ -42,12 +42,12 @@ def save_tasks(tasklist, fname):
     file.close()
     return 0
 
-def clear_screen():
+def clear_screen() -> None:
     """
     Clears the terminal
     """
     os.system('cls' if os.name == 'nt' else 'clear')
-    pass
+    return None
 
 
 def print_heading():
