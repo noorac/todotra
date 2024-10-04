@@ -19,7 +19,7 @@ import sys
 import os
 import time
 
-def load_tasks(fname):
+def load_tasks(fname) -> list:
     """
     Opening the file of previously saved tasks, if there are no tasks saved
     then return an empty list
@@ -32,7 +32,7 @@ def load_tasks(fname):
     except FileNotFoundError:
         return []
 
-def save_tasks(tasklist, fname):
+def save_tasks(tasklist, fname) -> None:
     """
     Writing the tasklist to a file
     """
@@ -40,7 +40,7 @@ def save_tasks(tasklist, fname):
         for task in tasklist:
             file.write(task + '\n')
     file.close()
-    return 0
+    return None
 
 def clear_screen() -> None:
     """
@@ -50,7 +50,7 @@ def clear_screen() -> None:
     return None
 
 
-def print_heading():
+def print_heading() -> None:
     """
     Prints out the heading of the program
     """
@@ -58,9 +58,9 @@ def print_heading():
     print('\n\n---------------------------------')
     print('Todotra: a client based todo-tracker')
     print('---------------------------------\n')
-    pass
+    return None
 
-def print_menu():
+def print_menu() -> None:
     """
     Prints out the main menu
     """
@@ -69,8 +69,9 @@ def print_menu():
     print('3. Mark task as completed')
     print('\nq. Save and quit\n')
     print('---------------------------------\n')
+    return None
 
-def add_task():
+def add_task() -> None:
     """
     Takes input from user and appends it to the task-list
     """
@@ -78,9 +79,9 @@ def add_task():
     task = input('Enter a new task: ')
     tasklist.append(task)
     print('\nTask added!')
-    return 0
+    return None
 
-def view_tasks():
+def view_tasks() -> None:
     """
     Prints out(with enumeration) a list of the tasks
     """
@@ -91,9 +92,9 @@ def view_tasks():
         print('List of tasks:')
         for i, task in enumerate(tasklist, start=1):
             print(f'{i}, {task}')
-    return 0
+    return None
 
-def mark_completed():
+def mark_completed() -> None:
     """
     Prints view_tasks and asks the user for input of which task to mar
     as completed. Then removes the task from the list
@@ -120,10 +121,10 @@ def mark_completed():
         except ValueError:
             print('Please enter a valid number')
 
-    return 0
+    return None
 
 
-def main():
+def main() -> None:
     """
     Main function
     """
@@ -163,7 +164,7 @@ def main():
             time.sleep(2)
 
 
-    return 0
+    return None
 
 if __name__ == '__main__':
     main()
