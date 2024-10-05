@@ -128,7 +128,9 @@ def main() -> None:
     """
     Main function
     """
-    fname = 'todo_list.txt'
+    user = os.popen('whoami').read()
+    user = user[:-1]
+    fname = '/home/'+str(user)+'/.todotra/todo_list.txt'
     global tasklist
     tasklist = load_tasks(fname)
     cont = True
