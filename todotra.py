@@ -155,7 +155,7 @@ def main() -> None:
             mark_completed()
         elif choise == 'q':
             save_tasks(tasklist, fname)
-            print('Todotra saved. Thank you for using the program. Goodbye!')
+            print('Todotra saved. Exiting program. Goodbye!')
             cont = False
             time.sleep(2)
             clear_screen()
