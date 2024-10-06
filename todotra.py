@@ -34,7 +34,7 @@ def load_tasks(fname) -> list:
 
 def save_tasks(tasklist, fname) -> None:
     """
-    Writing the tasklist to a file
+    Write the tasklist to a file
     """
     with open(fname, 'w') as file:
         for task in tasklist:
