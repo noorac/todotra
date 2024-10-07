@@ -107,7 +107,7 @@ def mark_completed() -> None:
         # Take input on what task to mark
         try:
             task_number = int(input('\nEnter the task number to mark as '
-                                    'completed(0 returns to main): '))
+                                    'completed(0 returns you to main): '))
             if task_number < 0 or task_number > len(tasklist):
                 print('Please enter a valid number')
             else:
