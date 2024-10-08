@@ -19,26 +19,37 @@ import sys
 import os
 import time
 
-def load_tasks(fname) -> list:
+def load_tasks(filename) -> list:
     """
     Opening the file of previously saved tasks, if there are no tasks saved
     then return an empty list
     """
     try:
-        with open(fname, 'r') as file:
-            tasklist = [line.strip() for line in file if line.strip()]
+        with open(filename, 'r') as file:
+            i = 1
+            tasklist = {}
+            for line in file:
+                if line.strip():
+                    if line[0] == "*":
+                        line = line[1:]
+                        tmp_list = ["*",line.strip()]
+                    else:
+                        tmp_list = [" ",line.strip()]
+                    tasklist[i] = tmp_list
+                    i += 1
             file.close()
         return tasklist
     except FileNotFoundError:
-        return []
+        return {}
 
-def save_tasks(tasklist, fname) -> None:
+def save_tasks(tasklist, filename) -> None:
     """
     Write the tasklist to a file
     """
-    with open(fname, 'w') as file:
-        for task in tasklist:
-            file.write(task + '\n')
+    with open(filename, 'w') as file:
+        for task in tasklist.values():
+            file.write(f'{task[0]}{task[1]}\n')
+            #file.write(f'{tasklist[task]}\n')
     file.close()
     return None
 
@@ -67,6 +78,7 @@ def print_menu() -> None:
     print('1. Add task')
     print('2. View tasks')
     print('3. Mark task as completed')
+    print('4. Delete task marked as completed')
     print('\nq. Save and quit\n')
     print('---------------------------------\n')
     return None
@@ -77,7 +89,7 @@ def add_task() -> None:
     """
     print_heading()
     task = input('Enter a new task: ')
-    tasklist.append(task)
+    tasklist[len(tasklist)+1] = [" ", task]
     print('\nTask added!')
     return None
 
@@ -90,8 +102,8 @@ def view_tasks() -> None:
         print('No tasks')
     else:
         print('List of tasks:')
-        for i, task in enumerate(tasklist, start=1):
-            print(f'{i}, {task}')
+        for i, task in enumerate(tasklist.values(), start=1):
+            print(f'[{task[0]}] {i}. {task[1]}')
     return None
 
 def mark_completed() -> None:
@@ -114,14 +126,32 @@ def mark_completed() -> None:
                 if task_number == 0:
                     return 0
                 else:
-                    completed_task = tasklist.pop(task_number - 1)
-                    print(f'\nTask "{completed_task}" ' 
+                    tmp_task = tasklist[task_number]
+                    tasklist[task_number] = ["*",tmp_task[1]]
+                    #completed_task = tasklist.pop(task_number - 1)
+                    print(f'\nTask "{task_number}" ' 
                           'marked as completed')
+                    time.sleep(2)
                     cont = False
         except ValueError:
             print('Please enter a valid number')
 
     return None
+
+def delete_mark_completed(tasklist) -> dict:
+    """
+    Removes entries in the dictionary that are marked as completed
+    """
+    print(tasklist)
+    if tasklist:
+        for i in range(len(tasklist)):
+            tmp_value = tasklist.get(i+1)
+            if tmp_value[0] == "*":
+                tasklist.pop(i+1)
+    save_tasks(tasklist,filename)
+    del tasklist
+    task_list = load_tasks(filename)
+    return task_list
 
 
 def main() -> None:
@@ -130,14 +160,15 @@ def main() -> None:
     """
     user = os.popen('whoami').read()
     user = user[:-1]
-    fname = '/home/'+str(user)+'/.todotra/todo_list.txt'
+    global filename
     global tasklist
-    tasklist = load_tasks(fname)
+    filename = '/home/'+str(user)+'/.todotra/todo_list.txt'
+    tasklist = load_tasks(filename)
     cont = True
     while cont:
         print_heading()
         print_menu()
-        choise = input('Enter your choise, 1-3, or q to quit: ')
+        choise = input('Enter your choise, 1-4, or q to quit: ')
         # Unused try except block
         try:
             pass
@@ -155,8 +186,11 @@ def main() -> None:
         elif choise == '3':
             #Mark tasks as completed
             mark_completed()
+        elif choise == '4':
+            #Delete tasks marked as completed
+            tasklist = delete_mark_completed(tasklist)
         elif choise == 'q':
-            save_tasks(tasklist, fname)
+            save_tasks(tasklist, filename)
             print('Todotra saved. Exiting program. Goodbye!')
             cont = False
             time.sleep(2)
