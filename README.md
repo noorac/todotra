@@ -5,7 +5,8 @@ Todotra is a terminal based todo-tracker, or a todo-list. It is my take on this 
 ## Why is it useful:
 It is useful to keep track of your tasks that need being done.
 ## How can you use the program:
-Simply download the todotra.py file and run it as a python script. the program will save the file to the current folder.
+Simply download the todotra.py file and run it as a python script. the program will save the file containing the tasks to /home/usr/.todotra/todo_list.txt 
+When using the program you can add tasks, view tasks, mark tasks as completed, clear the tasks marked as completed and quit the program. Quitting will save the current list of tasks.
 ## Where can you get help with the project:
 Contact me here on github.
 ## Who maintains the project:
