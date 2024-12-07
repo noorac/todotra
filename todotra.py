@@ -114,7 +114,7 @@ def view_tasks() -> None:
 
 def mark_completed() -> None:
     """
-    Prints view_tasks and asks the user for input of which task to mar
+    Prints view_tasks and asks the user for input of which task to mark
     as completed. Then removes the task from the list
     """
     cont = True
