@@ -9,7 +9,7 @@ To-do tracker
 Author: Kjetil Paulsen
 Date: 28. september 2024
 
-This is my version of the classic todo-list. 
+This is my version of the classic todo-list, mandatory in all portfolios. 
 
 ------------------------------------------------------------------------------
 
